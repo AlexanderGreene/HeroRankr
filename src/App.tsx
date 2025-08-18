@@ -1,36 +1,27 @@
-import React, { useState } from 'react';
-import type { Hero } from './types/hero';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function App() {
-	const [hero, setHero] = useState<Hero>({
-		id: 1,
-		name: 'Spiderman',
-	});
-
-	const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setHero({ ...hero, name: event.target.value });
-	};
-
 	return (
-		<div className='container mt-5 mx-auto'>
-			<h2 className='text-2xl'>Details</h2>
-			<div>
-				<span className='font-bold'>ID:</span> {hero.id}
+		<>
+			<h1 className='text-4xl text-slate-700 font-bold text-center'>
+				HeroRankr
+			</h1>
+			<nav className='bg-slate-200 p-1 mt-2'>
+				<ul className='flex justify-center gap-4 my-3 text-2xl font-semibold uppercase'>
+					<li>
+						<NavLink to='/dashboard'>Dashboard</NavLink>
+					</li>
+					<li>
+						<NavLink to='/heroes'>Heroes</NavLink>
+					</li>
+				</ul>
+			</nav>
+			<div className='mt-5 container mx-auto flex justify-between gap-6'>
+				<div className='flex-1'>
+					<Outlet />
+				</div>
+				<div className='flex-1'>Messages go here</div>
 			</div>
-			<div className='space-x-2'>
-				<span className='font-bold'>Name:</span>
-				<span className='uppercase'>{hero.name}</span>
-			</div>
-			<div className='flex flex-col gap-2 mt-3 border-t'>
-				<label>Hero name</label>
-				<input
-					type='text'
-					placeholder='name'
-					className='border border-gray-300 rounded-lg p-2 w-1/4'
-					value={hero.name}
-					onChange={handleNameChange}
-				/>
-			</div>
-		</div>
+		</>
 	);
 }
