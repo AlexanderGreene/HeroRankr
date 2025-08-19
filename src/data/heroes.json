@@ -13,7 +13,7 @@
       "id": "14"
     },
     {
-      "name": "Magento",
+      "name": "Magneto",
       "id": "15"
     },
     {
@@ -35,6 +35,14 @@
     {
       "id": "20",
       "name": "Tornado"
+    },
+    {
+      "name": "El Diablo",
+      "id": "e50b"
+    },
+    {
+      "id": "08fb",
+      "name": "Clever Dan"
     }
   ]
 }
