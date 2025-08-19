@@ -9,6 +9,25 @@ const HeroesList = () => {
 	const [heroes, setHeroes] = useState<Hero[]>([]);
 	const { addMessage } = useMessages();
 
+	const deleteHero = async (hero: Hero) => {
+		try {
+			const response = await fetch(`${apiUrl}/heroes/${hero.id}`, {
+				method: 'DELETE',
+			});
+
+			if (!response.ok)
+				throw new Error('Request failed: ' + response.statusText);
+
+			setHeroes((prevHeroes) =>
+				prevHeroes.filter((h) => h.id !== hero.id)
+			);
+			addMessage(`Hero ${hero.name} deleted.`);
+		} catch (error) {
+			console.error(error);
+			addMessage('Failed to delete hero');
+		}
+	};
+
 	const fetched = useRef(false);
 
 	useEffect(() => {
@@ -43,9 +62,18 @@ const HeroesList = () => {
 						<span className='bg-slate-700 text-white rounded-l p-2'>
 							{hero.id}
 						</span>
-						<span className='p-2 bl-slate-300 rounded-r w-full'>
-							{hero.name}
-						</span>
+						<div className='p-2 bl-slate-300 rounded-r w-full flex justify-between'>
+							<span>{hero.name}</span>
+							<span
+								className='bg-white px-1 cursor-pointer'
+								onClick={(e) => {
+									e.preventDefault();
+									deleteHero(hero);
+								}}
+							>
+								X
+							</span>
+						</div>
 					</Link>
 				))}
 			</ul>
